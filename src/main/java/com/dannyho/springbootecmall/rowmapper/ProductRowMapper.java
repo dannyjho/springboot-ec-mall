@@ -1,5 +1,6 @@
 package com.dannyho.springbootecmall.rowmapper;
 
+import com.dannyho.springbootecmall.constant.ProductCategory;
 import com.dannyho.springbootecmall.model.Product;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -12,7 +13,7 @@ public class ProductRowMapper implements RowMapper<Product> {
         return Product.builder()
                 .id(resultSet.getLong("product_id"))
                 .productName(resultSet.getString("product_name"))
-                .category(resultSet.getString("category"))
+                .category(ProductCategory.valueOf(resultSet.getString("category")))
                 .imageUrl(resultSet.getString("image_url"))
                 .price(resultSet.getInt("price"))
                 .stock(resultSet.getInt("stock"))

@@ -1,5 +1,6 @@
 package com.dannyho.springbootecmall.model;
 
+import com.dannyho.springbootecmall.constant.ProductCategory;
 import lombok.Builder;
 import lombok.Value;
 
@@ -10,7 +11,7 @@ import java.sql.Timestamp;
 public class Product {
     long id;
     String productName;
-    String category;
+    ProductCategory category;
     String imageUrl;
     Integer price;
     Integer stock;
