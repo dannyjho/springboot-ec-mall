@@ -1,6 +1,7 @@
 package com.dannyho.springbootecmall.service;
 
 import com.dannyho.springbootecmall.dao.ProductDao;
+import com.dannyho.springbootecmall.dto.ProductRequest;
 import com.dannyho.springbootecmall.model.Product;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +17,10 @@ public class ProductServiceImpl implements ProductService{
 
     public Product getProductById(long productId) {
         return productDao.getProductById(productId);
+    }
+
+    @Override
+    public Integer createProduct(ProductRequest productRequest) {
+        return productDao.createProduct(productRequest);
     }
 }
