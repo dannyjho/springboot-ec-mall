@@ -5,6 +5,8 @@ import com.dannyho.springbootecmall.dto.ProductRequest;
 import com.dannyho.springbootecmall.model.Product;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProductServiceImpl implements ProductService {
 
@@ -12,6 +14,11 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductServiceImpl(ProductDao productDao) {
         this.productDao = productDao;
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        return productDao.getProducts();
     }
 
 
