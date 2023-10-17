@@ -6,7 +6,7 @@ import com.dannyho.springbootecmall.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductDao productDao;
 
@@ -22,5 +22,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Integer createProduct(ProductRequest productRequest) {
         return productDao.createProduct(productRequest);
+    }
+
+    @Override
+    public void updateProduct(long productId, ProductRequest productRequest) {
+        productDao.updateProduct(productId, productRequest);
     }
 }

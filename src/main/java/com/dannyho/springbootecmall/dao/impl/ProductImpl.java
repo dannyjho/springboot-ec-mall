@@ -4,7 +4,6 @@ import com.dannyho.springbootecmall.dao.ProductDao;
 import com.dannyho.springbootecmall.dto.ProductRequest;
 import com.dannyho.springbootecmall.model.Product;
 import com.dannyho.springbootecmall.rowmapper.ProductRowMapper;
-import jdk.jfr.Category;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -60,5 +59,27 @@ public class ProductImpl implements ProductDao {
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
+    }
+
+    @Override
+    public void updateProduct(long productId, ProductRequest productRequest) {
+        String sql = "UPDATE product SET product_name = :productName, category = :category," +
+                " image_url = :imageUrl, price = :price," +
+                " stock = :stock, description = :description," +
+                " last_modified_date = :lastModifiedDate WHERE product_id = :productId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("productId", productId);
+
+        map.put("productName", productRequest.getProductName());
+        map.put("category", productRequest.getCategory().toString());
+        map.put("imageUrl", productRequest.getImageUrl());
+        map.put("price", productRequest.getPrice());
+        map.put("stock", productRequest.getStock());
+        map.put("description", productRequest.getDescription());
+
+        map.put("lastModifiedDate", LocalDateTime.now());
+
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map));
     }
 }

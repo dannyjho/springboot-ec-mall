@@ -30,10 +30,23 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest){
+    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
         Integer productId = productService.createProduct(productRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.getProductById(productId));
     }
 
+    @PutMapping("/products/{productId}")
+    public ResponseEntity<Product> updateProduct(@PathVariable long productId,
+                                                 @RequestBody @Valid ProductRequest productRequest) {
+        // 檢查 product 是否存在
+        if (productService.getProductById(productId) == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        // 修改商品數據
+        productService.updateProduct(productId, productRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProductById(productId));
+    }
 }
