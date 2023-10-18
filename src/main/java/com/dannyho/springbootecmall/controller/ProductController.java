@@ -1,6 +1,7 @@
 package com.dannyho.springbootecmall.controller;
 
 import com.dannyho.springbootecmall.constant.ProductCategory;
+import com.dannyho.springbootecmall.dto.ProductQueryParams;
 import com.dannyho.springbootecmall.dto.ProductRequest;
 import com.dannyho.springbootecmall.model.Product;
 import com.dannyho.springbootecmall.service.ProductService;
@@ -25,7 +26,9 @@ public class ProductController {
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.getProducts(category, search));
+        ProductQueryParams productQueryParams = new ProductQueryParams(category, search);
+
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProducts(productQueryParams));
     }
 
     @GetMapping("/products/{productId}")

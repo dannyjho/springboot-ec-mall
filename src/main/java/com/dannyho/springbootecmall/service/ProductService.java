@@ -1,13 +1,13 @@
 package com.dannyho.springbootecmall.service;
 
-import com.dannyho.springbootecmall.constant.ProductCategory;
+import com.dannyho.springbootecmall.dto.ProductQueryParams;
 import com.dannyho.springbootecmall.dto.ProductRequest;
 import com.dannyho.springbootecmall.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getProducts(ProductCategory category, String search);
+    List<Product> getProducts(ProductQueryParams productQueryParams);
 
     Product getProductById(long id);
 

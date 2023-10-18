@@ -1,7 +1,7 @@
 package com.dannyho.springbootecmall.dao.impl;
 
-import com.dannyho.springbootecmall.constant.ProductCategory;
 import com.dannyho.springbootecmall.dao.ProductDao;
+import com.dannyho.springbootecmall.dto.ProductQueryParams;
 import com.dannyho.springbootecmall.dto.ProductRequest;
 import com.dannyho.springbootecmall.model.Product;
 import com.dannyho.springbootecmall.rowmapper.ProductRowMapper;
@@ -17,29 +17,29 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component
-public class ProductImpl implements ProductDao {
+public class ProductDaoImpl implements ProductDao {
 
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public ProductImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public ProductDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
-    public List<Product> getProducts(ProductCategory category, String search) {
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
         String sql = "SELECT product_id, product_name, category, image_url, " +
                 "price,stock, description, created_date, last_modified_date FROM product WHERE 1=1";
 
         HashMap<String, Object> map = new HashMap<>();
-        if (category != null) {
+        if (productQueryParams.getProductCategory() != null) {
             sql = sql + " AND category = :category";
-            map.put("category", category.name());
+            map.put("category", productQueryParams.getProductCategory().name());
         }
 
-        if (search != null) {
+        if (productQueryParams.getSearch() != null) {
             sql = sql + " AND product_name LIKE :productName";
-            map.put("productName", "%" + search + "%");
+            map.put("productName", "%" + productQueryParams.getSearch() + "%");
         }
 
         return namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
