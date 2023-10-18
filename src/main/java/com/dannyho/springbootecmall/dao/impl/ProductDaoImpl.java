@@ -49,8 +49,8 @@ public class ProductDaoImpl implements ProductDao {
 
         // 分頁
         sql = sql + " LIMIT :limit OFFSET :offset";
-        map.put("limit",productQueryParams.getLimit());
-        map.put("offset",productQueryParams.getOffset());
+        map.put("limit", productQueryParams.getLimit());
+        map.put("offset", productQueryParams.getOffset());
 
         return namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
     }
@@ -65,6 +65,25 @@ public class ProductDaoImpl implements ProductDao {
         List<Product> result = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
         return !result.isEmpty() ? result.get(0) : null;
+    }
+
+    @Override
+    public Integer countProduct(ProductQueryParams productQueryParams) {
+        String sql = "SELECT count(*) FROM product WHERE 1=1";
+        HashMap<String, Object> map = new HashMap<>();
+
+        // 查詢條件
+        if (productQueryParams.getProductCategory() != null) {
+            sql = sql + " AND category = :category";
+            map.put("category", productQueryParams.getProductCategory().name());
+        }
+
+        if (productQueryParams.getSearch() != null) {
+            sql = sql + " AND product_name LIKE :productName";
+            map.put("productName", "%" + productQueryParams.getSearch() + "%");
+        }
+        
+        return namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
     }
 
     @Override

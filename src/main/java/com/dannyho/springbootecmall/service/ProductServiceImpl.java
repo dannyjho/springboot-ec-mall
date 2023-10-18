@@ -22,9 +22,13 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getProducts(productQueryParams);
     }
 
-
     public Product getProductById(long productId) {
         return productDao.getProductById(productId);
+    }
+
+    @Override
+    public Integer countProduct(ProductQueryParams productQueryParams) {
+        return productDao.countProduct(productQueryParams);
     }
 
     @Override

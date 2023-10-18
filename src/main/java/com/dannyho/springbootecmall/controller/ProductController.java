@@ -5,6 +5,7 @@ import com.dannyho.springbootecmall.dto.ProductQueryParams;
 import com.dannyho.springbootecmall.dto.ProductRequest;
 import com.dannyho.springbootecmall.model.Product;
 import com.dannyho.springbootecmall.service.ProductService;
+import com.dannyho.springbootecmall.util.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.util.List;
 
 @Validated
 @RestController
@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(
+    public ResponseEntity<Page<Product>> getProducts(
             // 查詢條件 Filtering
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search,
@@ -42,7 +42,16 @@ public class ProductController {
         ProductQueryParams productQueryParams = new ProductQueryParams(category, search, orderBy,
                 sort, limit, offset);
 
-        return ResponseEntity.status(HttpStatus.OK).body(productService.getProducts(productQueryParams));
+        Page<Product> page = Page.<Product>builder()
+                .limit(limit)
+                .offset(offset)
+                // 取得 product 總數
+                .total(productService.countProduct(productQueryParams))
+                // 取得 product list
+                .results(productService.getProducts(productQueryParams))
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
     @GetMapping("/products/{productId}")
