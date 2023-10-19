@@ -16,6 +16,6 @@ public class Product {
     Integer price;
     Integer stock;
     String description;
-    Timestamp createDate;
-    Timestamp lastModifyTime;
+    Timestamp createdDate;
+    Timestamp lastModifiedDate;
 }

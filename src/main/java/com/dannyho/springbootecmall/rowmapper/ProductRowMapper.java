@@ -18,7 +18,7 @@ public class ProductRowMapper implements RowMapper<Product> {
                 .price(resultSet.getInt("price"))
                 .stock(resultSet.getInt("stock"))
                 .description(resultSet.getString("description"))
-                .createDate(resultSet.getTimestamp("created_date"))
-                .lastModifyTime(resultSet.getTimestamp("last_modified_date")).build();
+                .createdDate(resultSet.getTimestamp("created_date"))
+                .lastModifiedDate(resultSet.getTimestamp("last_modified_date")).build();
     }
 }
