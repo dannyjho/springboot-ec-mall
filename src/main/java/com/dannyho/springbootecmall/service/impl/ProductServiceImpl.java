@@ -1,9 +1,10 @@
-package com.dannyho.springbootecmall.service;
+package com.dannyho.springbootecmall.service.impl;
 
 import com.dannyho.springbootecmall.dao.ProductDao;
 import com.dannyho.springbootecmall.dto.ProductQueryParams;
 import com.dannyho.springbootecmall.dto.ProductRequest;
 import com.dannyho.springbootecmall.model.Product;
+import com.dannyho.springbootecmall.service.ProductService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
