@@ -7,9 +7,11 @@ import javax.validation.constraints.NotBlank;
 
 @Value
 public class UserRegisterRequest {
-    
+
     @NotBlank
+    @Email
     String email;
+
     @NotBlank
     String password;
 }
