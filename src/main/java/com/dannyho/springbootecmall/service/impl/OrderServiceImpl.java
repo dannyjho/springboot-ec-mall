@@ -4,6 +4,7 @@ import com.dannyho.springbootecmall.dao.OrderDao;
 import com.dannyho.springbootecmall.dao.ProductDao;
 import com.dannyho.springbootecmall.dto.BuyItem;
 import com.dannyho.springbootecmall.dto.CreateOrderRequest;
+import com.dannyho.springbootecmall.model.Order;
 import com.dannyho.springbootecmall.model.OrderItem;
 import com.dannyho.springbootecmall.model.Product;
 import com.dannyho.springbootecmall.service.OrderService;
@@ -24,6 +25,14 @@ public class OrderServiceImpl implements OrderService {
         this.productDao = productDao;
     }
 
+    @Override
+    public Order getOrderById(Integer orderId) {
+        Order order = orderDao.getOrderById(orderId);
+        List<OrderItem> orderItemList = orderDao.geOrderItemsByOrderId(orderId);
+        order.setOrderItemList(orderItemList);
+        return order;
+    }
+
     @Transactional
     @Override
     public Integer createOrder(Integer userId, CreateOrderRequest createOrderRequest) {
@@ -38,7 +47,11 @@ public class OrderServiceImpl implements OrderService {
             totalAmount = totalAmount + amount;
 
             // 轉換 BuyItem to OrderItem
-            OrderItem orderItem = new OrderItem(null, null, buyItem.getProductId(), buyItem.getQuantity(), amount);
+            OrderItem orderItem = OrderItem.builder()
+                    .productId(buyItem.getProductId())
+                    .quantity(buyItem.getQuantity())
+                    .amount(amount)
+                    .build();
             orderItemList.add(orderItem);
         }
 

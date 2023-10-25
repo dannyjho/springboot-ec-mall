@@ -1,6 +1,7 @@
 package com.dannyho.springbootecmall.controller;
 
 import com.dannyho.springbootecmall.dto.CreateOrderRequest;
+import com.dannyho.springbootecmall.model.Order;
 import com.dannyho.springbootecmall.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,8 @@ public class OrderController {
                                          @RequestBody @Valid CreateOrderRequest createOrderRequest) {
         Integer orderId = orderService.createOrder(userId, createOrderRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderId);
+        Order order = orderService.getOrderById(orderId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 }
