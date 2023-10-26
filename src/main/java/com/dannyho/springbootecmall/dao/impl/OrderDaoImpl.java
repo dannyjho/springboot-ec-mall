@@ -98,7 +98,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Integer createOrder(Integer userId, Integer totalAmount) {
         String sql = "INSERT INTO `order`(user_id, total_amount, created_date, last_modified_date) " +
-                "VALUE (:userId, :totalAmount, :createdDate, :lastModifiedDate)";
+                "VALUES (:userId, :totalAmount, :createdDate, :lastModifiedDate)";
 
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
@@ -119,7 +119,7 @@ public class OrderDaoImpl implements OrderDao {
     public void createOrderItems(Integer orderId, List<OrderItem> orderItemList) {
         // 使用 batchUpdate 一次性加入數據，提升效率
         String sql = "INSERT INTO order_item(order_id, product_id, quantity, amount) " +
-                "VALUE(:orderId, :productId, :quantity, :amount)";
+                "VALUES (:orderId, :productId, :quantity, :amount)";
 
         MapSqlParameterSource[] parameterSources = new MapSqlParameterSource[orderItemList.size()];
 
