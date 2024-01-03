@@ -2,7 +2,6 @@ package com.dannyho.springbootecmall.controller;
 
 import com.dannyho.springbootecmall.dto.BuyItem;
 import com.dannyho.springbootecmall.dto.CreateOrderRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -119,7 +117,7 @@ public class OrderControllerTest {
         String json = objectMapper.writeValueAsString(createOrderRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/users/{userId}/orders",1)
+                .post("/users/{userId}/orders", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
@@ -141,7 +139,7 @@ public class OrderControllerTest {
         String json = objectMapper.writeValueAsString(createOrderRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/users/{userId}/orders",999)
+                .post("/users/{userId}/orders", 999)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
@@ -163,7 +161,7 @@ public class OrderControllerTest {
         String json = objectMapper.writeValueAsString(createOrderRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/users/{userId}/orders",1)
+                .post("/users/{userId}/orders", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
@@ -185,7 +183,7 @@ public class OrderControllerTest {
         String json = objectMapper.writeValueAsString(createOrderRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/users/{userId}/orders",1)
+                .post("/users/{userId}/orders", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 

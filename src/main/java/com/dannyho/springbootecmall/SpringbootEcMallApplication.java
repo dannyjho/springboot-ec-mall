@@ -9,5 +9,4 @@ public class SpringbootEcMallApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringbootEcMallApplication.class, args);
     }
-
 }
